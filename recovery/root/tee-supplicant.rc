@@ -1,0 +1,27 @@
+service tee-supplicant /system/bin/tee-supplicant
+    class main
+    user root
+    group root
+    disabled
+    seclabel u:r:recovery:s0
+
+on post-fs-data && property:ro.boot.tee_type=1
+    chmod 0660 /dev/teei_client
+    chown system system /dev/teei_client
+    chmod 0660 /dev/teei_config
+    chown system system /dev/teei_config
+    chmod 0660 /dev/tz_vfs
+    chown system system /dev/tz_vfs
+    chmod 0660 /dev/teei_fp
+    chown system /dev/teei_fp
+    chown system drmrpc /dev/ut_keymaster
+    chmod 0660 /dev/ut_keymaster
+    chmod 0660 /dev/rpmb0
+    chown system system /dev/rpmb0
+    chmod 0660 /dev/emmcrpmb0
+    chown system system /dev/emmcrpmb0
+    chown system system /dev/utr_tui
+    chmod 0660 /dev/utr_tui
+    mkdir /mnt/vendor/persist 0771 system system
+    restorecon_recursive /mnt/vendor/persist
+    start tee-supplicant 

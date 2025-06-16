@@ -1,0 +1,11 @@
+service miteelog /system/bin/miteelog
+    class main
+    user root
+    group root
+    disabled
+    seclabel u:r:recovery:s0
+
+on post-fs-data && property:ro.boot.tee_type=1
+    mkdir /data/vendor/miteelog 0770 system system
+    restorecon_recursive /data/vendor/miteelog
+    start miteelog 
