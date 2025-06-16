@@ -62,8 +62,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     bootctrl.mt6893
 
-PRODUCT_STATIC_BOOT_CONTROL_HAL := \
-    bootctrl.mt6893 \
+PRODUCT_PACKAGES += \
     libgptutils \
     libz \
     libcutils

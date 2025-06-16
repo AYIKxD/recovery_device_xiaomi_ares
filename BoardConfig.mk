@@ -131,3 +131,7 @@ TW_INCLUDE_FBE_METADATA_DECRYPT := true
 # fstab
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery.fstab
 TARGET_RECOVERY_WIPE := $(DEVICE_PATH)/recovery.wipe
+
+# MT6893 fstab configuration
+TARGET_RECOVERY_FSTAB_MT6893 := $(DEVICE_PATH)/recovery/root/first_stage_ramdisk/fstab.mt6893
+TARGET_RECOVERY_FSTAB_EMMC := $(DEVICE_PATH)/recovery/root/first_stage_ramdisk/fstab.emmc
