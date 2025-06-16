@@ -7,11 +7,74 @@ import /tee-supplicant.rc
 
 on init
     export LD_LIBRARY_PATH /system/lib64:/vendor/lib64:/vendor/lib64/hw
+    # Set TWRP specific properties
+    setprop ro.twrp.boot 1
+    setprop ro.twrp.version 1
+    # Set SELinux to permissive for recovery
+    setprop ro.boot.selinux permissive
+    setprop ro.boot.warranty_bit 0
+    setprop ro.warranty_bit 0
+    # Disable AVB for recovery
+    setprop ro.boot.verifiedbootstate orange
+    setprop ro.boot.flash.locked 0
+    setprop ro.boot.veritymode disabled
+    # Set recovery specific properties
+    setprop ro.recovery.boot 1
+    setprop ro.recovery.mode 1
+    # Fix process group issues
+    write /proc/sys/kernel/cgroup_disable 0
+    write /proc/sys/kernel/cgroup_no_v1 0
+    # Set DMA buffer size
+    write /sys/module/dma_buf/parameters/debug 0
+    write /sys/module/dma_buf/parameters/def_dma_buf_size 1048576
+    # Set ION memory management
+    write /sys/module/ion/parameters/debug 0
+    write /sys/module/ion/parameters/def_ion_heap_size 1048576
+    # Set display power management
+    write /sys/module/mtk_drm/parameters/debug 0
+    write /sys/module/mtk_drm/parameters/force_disable 0
+    write /sys/module/mtk_drm/parameters/force_enable 1
+    # Set APEX mount options
+    setprop apexd.status ready
+    setprop apexd.mount_allowed 1
+    setprop apexd.unmount_allowed 1
+    # Set mount point cleanup options
+    setprop ro.mount.cleanup 1
+    setprop ro.mount.force_cleanup 1
+    # Set data partition options
+    setprop ro.data.mount_cleanup 1
+    setprop ro.data.force_cleanup 1
 
 on fs
     install_keyring
+    # Ensure block devices are ready
+    wait /dev/block/platform/bootdevice/by-name
+    wait /dev/block/by-name
+    # Set proper permissions
+    chmod 0755 /dev/block/platform/bootdevice/by-name
+    chmod 0755 /dev/block/by-name
+    # Fix process group permissions
+    chmod 0755 /sys/fs/cgroup
+    chmod 0755 /sys/fs/cgroup/uid_*
+    # Set display permissions
+    chmod 0755 /sys/class/drm
+    chmod 0755 /sys/class/drm/card0
+    chmod 0755 /sys/class/drm/card0/device
+    # Set APEX permissions
+    chmod 0755 /apex
+    chmod 0755 /data/apex
+    chmod 0755 /data/apex/decompressed
+    # Set mount point permissions
+    chmod 0755 /mnt
+    chmod 0755 /mnt/vendor
+    chmod 0755 /mnt/vendor/persist
+    chmod 0755 /mnt/vendor/nvcfg
+    chmod 0755 /mnt/vendor/nvdata
+    chmod 0755 /mnt/vendor/protect_s
+    chmod 0755 /mnt/vendor/protect_f
 
 on post-fs
+    # Start essential services first
     start boot-hal-1-1
     start mtk.plpath.utils.link
 
@@ -35,6 +98,7 @@ on post-fs
 
     exec u:r:update_engine:s0 root root -- /system/bin/mtk_plpath_utils
 
+# Modified service definitions with proper permissions and dependencies
 service mtk.plpath.utils.link /system/bin/mtk_plpath_utils
     class main
     user root
@@ -42,6 +106,10 @@ service mtk.plpath.utils.link /system/bin/mtk_plpath_utils
     oneshot
     disabled
     seclabel u:r:recovery:s0
+    # Add proper dependencies
+    onrestart restart keystore
+    onrestart restart keymaster-4-0-mitee
+    onrestart restart keymaster-4-0-beanpod
 
 service keystore_auth /system/bin/keystore_auth
     oneshot
@@ -49,12 +117,17 @@ service keystore_auth /system/bin/keystore_auth
     group root
     disabled
     seclabel u:r:recovery:s0
+    # Add proper dependencies
+    onrestart restart keystore
 
 service keystore /system/bin/keystore /tmp/misc/keystore
     user root
     group root drmrpc readproc log
     disabled
     seclabel u:r:recovery:s0
+    # Add proper dependencies
+    onrestart restart keymaster-4-0-mitee
+    onrestart restart keymaster-4-0-beanpod
 
 service keymaster-4-0-beanpod /system/bin/android.hardware.keymaster@4.0-service.beanpod
     user root
@@ -62,6 +135,8 @@ service keymaster-4-0-beanpod /system/bin/android.hardware.keymaster@4.0-service
     oneshot    
     disabled
     seclabel u:r:recovery:s0
+    # Add proper dependencies
+    onrestart restart keystore
 
 service keymaster-4-0-mitee /system/bin/android.hardware.keymaster@4.0-service.mitee
     user root
@@ -69,6 +144,8 @@ service keymaster-4-0-mitee /system/bin/android.hardware.keymaster@4.0-service.m
     oneshot    
     disabled
     seclabel u:r:recovery:s0
+    # Add proper dependencies
+    onrestart restart keystore
 
 service gatekeeper-1-0 /system/bin/android.hardware.gatekeeper@1.0-service
     user root
@@ -76,9 +153,24 @@ service gatekeeper-1-0 /system/bin/android.hardware.gatekeeper@1.0-service
     oneshot
     disabled
     seclabel u:r:recovery:s0
+    # Add proper dependencies
+    onrestart restart keystore
 
+# Modified service triggers with proper order and dependencies
 on property:hwservicemanager.ready=true
+    # Start services in correct order with proper dependencies
     start gatekeeper-1-0
+    start keystore_auth
+    start keystore
+    # Start TEE services after keystore
+    start keymaster-4-0-mitee
+    start keymaster-4-0-beanpod
+    # Set proper process group
+    write /sys/fs/cgroup/uid_0/cgroup.procs 1
+    write /sys/fs/cgroup/uid_1000/cgroup.procs 1
+    # Set display power state
+    write /sys/class/drm/card0/device/power_state on
+    write /sys/class/drm/card0/device/power_control on
 
 on property:hwservicemanager.ready=true && property:ro.boot.tee_type=1
     stop keymaster-4-0-beanpod
@@ -108,3 +200,25 @@ on property:twrp.decrypt.done=true
 
 on boot
     start health-hal-2-1
+    # Set proper permissions for recovery
+    chmod 0755 /dev/block/platform/bootdevice/by-name
+    chmod 0755 /dev/block/by-name
+    # Ensure proper SELinux context
+    restorecon_recursive /dev/block/platform/bootdevice/by-name
+    restorecon_recursive /dev/block/by-name
+    # Fix process group issues
+    write /sys/fs/cgroup/uid_0/cgroup.procs 1
+    write /sys/fs/cgroup/uid_1000/cgroup.procs 1
+    # Set DMA buffer size
+    write /sys/module/dma_buf/parameters/debug 0
+    write /sys/module/dma_buf/parameters/def_dma_buf_size 1048576
+    # Set ION memory management
+    write /sys/module/ion/parameters/debug 0
+    write /sys/module/ion/parameters/def_ion_heap_size 1048576
+    # Set display power management
+    write /sys/module/mtk_drm/parameters/debug 0
+    write /sys/module/mtk_drm/parameters/force_disable 0
+    write /sys/module/mtk_drm/parameters/force_enable 1
+    # Set display power state
+    write /sys/class/drm/card0/device/power_state on
+    write /sys/class/drm/card0/device/power_control on
