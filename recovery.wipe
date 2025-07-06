@@ -7,8 +7,8 @@
 /dev/block/bootdevice/by-name/product_b
 /dev/block/bootdevice/by-name/vendor_a
 /dev/block/bootdevice/by-name/vendor_b
-/dev/block/bootdevice/by-name/odm_a
-/dev/block/bootdevice/by-name/odm_b
+#/dev/block/bootdevice/by-name/odm_a
+#/dev/block/bootdevice/by-name/odm_b
 /dev/block/bootdevice/by-name/userdata
 
 # Wipe the boot partitions last so that all partitions will be wiped
