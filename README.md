@@ -17,28 +17,6 @@
 | Front Camera           | 16 MP (wide)                                                              |
 
 
-## Features
-
-- [x] Decryption of /data
-- [x] Display brightness control
-- [x] Correct screenshot color
-- [x] Vibration support
-- [x] Flashlight support
-- [x] MTP support
-- [x] USB OTG support
-- [x] Backup/Restore
-- [x] Partitions backup/restore
-- [x] File manager
-- [x] Terminal
-- [x] Advanced reboot
-- [x] F2FS/EXT4 support
-- [x] FBE support
-- [x] Dynamic partitions support
-- [x] A/B support
-- [x] Fastbootd support
-- [x] EDL mode support
-- [x] Download mode support
-
 ## Compile
 
 First, set up the build environment following instructions from [PBRP's README](https://github.com/PitchBlackRecoveryProject/manifest_pb).
