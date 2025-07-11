@@ -79,7 +79,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/recovery/root/system/lib64/hw/android.hardware.boot@1.0-impl-1.2-mtkimpl.so:system/lib64/hw/android.hardware.boot@1.0-impl-1.2-mtkimpl.so \
     $(LOCAL_PATH)/recovery/root/system/etc/twrp.flags:system/etc/twrp.flags \
     $(LOCAL_PATH)/recovery/root/system/etc/task_profiles.json:system/etc/task_profiles.json \
-    $(LOCAL_PATH)/recovery/root/system/etc/vintf/manifest.xml:system/etc/vintf/manifest.xml \
     $(LOCAL_PATH)/recovery/root/vendor/lib64/libTEECommon.so:vendor/lib64/libTEECommon.so \
     $(LOCAL_PATH)/recovery/root/vendor/lib64/libteecli.so:vendor/lib64/libteecli.so \
     $(LOCAL_PATH)/recovery/root/vendor/lib64/hw/gatekeeper.beanpod.so:vendor/lib64/hw/gatekeeper.beanpod.so \
@@ -87,7 +86,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/recovery/root/vendor/lib64/hw/android.hardware.gatekeeper@1.0-impl.so:vendor/lib64/hw/android.hardware.gatekeeper@1.0-impl.so \
     $(LOCAL_PATH)/recovery/root/vendor/lib64/hw/libSoftGatekeeper.so:vendor/lib64/hw/libSoftGatekeeper.so \
     $(LOCAL_PATH)/recovery/root/vendor/lib64/hw/libimsg_log.so:vendor/lib64/hw/libimsg_log.so \
-    $(LOCAL_PATH)/recovery/root/vendor/etc/vintf/manifest.xml:vendor/etc/vintf/manifest.xml \
     $(LOCAL_PATH)/recovery/root/vendor/mitee/ta/14b0aad8-c011-4a3f-b66aca8d0e66f273.ta:vendor/mitee/ta/14b0aad8-c011-4a3f-b66aca8d0e66f273.ta \
     $(LOCAL_PATH)/recovery/root/vendor/mitee/ta/377ee4e8-af0e-474f-a9d636a9268fe85c.ta:vendor/mitee/ta/377ee4e8-af0e-474f-a9d636a9268fe85c.ta \
     $(LOCAL_PATH)/recovery/root/vendor/mitee/ta/3d08821c-33a6-11e6-a1fa089e01c83aa2.ta:vendor/mitee/ta/3d08821c-33a6-11e6-a1fa089e01c83aa2.ta \
@@ -126,3 +124,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/recovery/root/vendor/thh/ta/e5140b3376fa4c63ab18062caab2fb5c.ta:vendor/thh/ta/e5140b3376fa4c63ab18062caab2fb5c.ta \
     $(LOCAL_PATH)/recovery/root/vendor/thh/ta/e97c270ea5c44c58bcd3384a2fa2539e.ta:vendor/thh/ta/e97c270ea5c44c58bcd3384a2fa2539e.ta \
     $(LOCAL_PATH)/recovery/root/vendor/thh/ta/isee_model.json:vendor/thh/ta/isee_model.json
+
+PRODUCT_SYSTEM_VINTF_FRAGMENTS += $(LOCAL_PATH)/recovery/root/system/etc/vintf/manifest.xml
+PRODUCT_VENDOR_VINTF_FRAGMENTS += $(LOCAL_PATH)/recovery/root/vendor/etc/vintf/manifest.xml
