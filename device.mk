@@ -55,7 +55,13 @@ PRODUCT_PACKAGES += \
 # Additional target Libraries
 TARGET_RECOVERY_DEVICE_MODULES += \
     libkeymaster4 \
-    libpuresoftkeymasterdevice
+    libpuresoftkeymasterdevice \
+    libpuresoftkeymasterdevice.vendor \
+    android.hardware.keymaster@4.0.vendor \
+	android.hardware.keymaster@4.0.vendor:64 \
+	android.hardware.keymaster@4.0.vendor \
+	libsoft_attestation_cert \
+	libsoft_attestation_cert.vendor
 
 TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
     $(TARGET_OUT_SHARED_LIBRARIES)/libkeymaster4.so \
