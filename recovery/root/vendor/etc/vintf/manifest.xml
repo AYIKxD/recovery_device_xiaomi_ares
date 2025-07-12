@@ -152,7 +152,12 @@
         </interface>
         <fqname>@4.0::IKeymasterDevice/default</fqname>
     </hal>
-    <hal format="hidl">
+    <hal format="aidl">
+        <name>android.system.keystore2</name>
+        <version>3</version>
+        <fqname>IKeystoreService/default</fqname>
+    </hal> 
+   <hal format="hidl">
         <name>android.hardware.media.omx</name>
         <transport>hwbinder</transport>
         <version>1.0</version>
