@@ -58,6 +58,7 @@ TARGET_RECOVERY_DEVICE_MODULES += \
     libpuresoftkeymasterdevice \
     libpuresoftkeymasterdevice.vendor \
     android.hardware.keymaster@4.0.vendor \
+    android.hardware.keymaster@4.0-service \
 	android.hardware.keymaster@4.0.vendor:64 \
 	android.hardware.keymaster@4.0.vendor \
 	libsoft_attestation_cert \
