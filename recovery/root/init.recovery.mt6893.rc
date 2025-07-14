@@ -1,5 +1,5 @@
 # Beanpod
-import /init.recovery.microtrust.rc
+import /microtrust.rc
 
 # Mitee
 import /miteelog.rc

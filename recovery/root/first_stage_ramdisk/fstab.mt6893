@@ -7,12 +7,15 @@
 # 1 "vendor/mediatek/proprietary/hardware/fstab/mt6893/fstab.in.mt6893" 2
 # 157 "vendor/mediatek/proprietary/hardware/fstab/mt6893/fstab.in.mt6893"
 system /system ext4 ro wait,slotselect,avb=vbmeta_system,logical,first_stage_mount,avb_keys=/avb/q-gsi.avbpubkey:/avb/r-gsi.avbpubkey:/avb/s-gsi.avbpubkey
+system /system erofs ro wait,slotselect,avb=vbmeta_system,logical,first_stage_mount,avb_keys=/avb/q-gsi.avbpubkey:/avb/r-gsi.avbpubkey:/avb/s-gsi.avbpubkey
 
 vendor /vendor ext4 ro wait,slotselect,avb,logical,first_stage_mount
-
+vendor /vendor erofs ro wait,slotselect,avb,logical,first_stage_mount
 
 product /product ext4 ro wait,slotselect,avb,logical,first_stage_mount
+product /product erofs ro wait,slotselect,avb,logical,first_stage_mount
 mi_ext /mnt/vendor/mi_ext ext4 ro wait,slotselect,avb=vbmeta,logical,first_stage_mount,nofail
+mi_ext /mnt/vendor/mi_ext erofs ro wait,slotselect,avb=vbmeta,logical,first_stage_mount,nofail
 /mnt/vendor/mi_ext /mi_ext none ro,bind wait,nofail
 overlay /product/overlay overlay ro,lowerdir=/mnt/vendor/mi_ext/product/overlay/:/product/overlay check,nofail
 overlay /product/app overlay ro,lowerdir=/mnt/vendor/mi_ext/product/app/:/product/app check,nofail
@@ -35,8 +38,7 @@ overlay /system/lib overlay ro,lowerdir=/product/pangu/system/lib/:/system/lib c
 overlay /system/lib64 overlay ro,lowerdir=/product/pangu/system/lib64/:/system/lib64 check,nofail
 
 system_ext /system_ext ext4 ro wait,avb,logical,first_stage_mount,slotselect
-
-
+system_ext /system_ext erofs ro wait,avb,logical,first_stage_mount,slotselect
 
 
 /dev/block/by-name/metadata /metadata ext4 noatime,nosuid,nodev,discard wait,check,formattable,first_stage_mount
