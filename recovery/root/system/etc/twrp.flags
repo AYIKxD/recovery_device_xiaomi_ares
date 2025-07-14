@@ -40,4 +40,4 @@
 /storage        f2fs        /data/media/0                                       flags=display="Internal Storage";backup=1;usermrf;fsflags="bind";removable
 
 # External Storage
-/usb_otg		vfat		/dev/block/sda1		/dev/block/sdd			flags=display="USB-OTG";storage;wipeingui;removable
+/usb-otg            vfat      /dev/block/sdd1                                                       flags=display="usb-otg";storage;wipeingui;removable;fsflags="utf8"
