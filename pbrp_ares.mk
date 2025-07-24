@@ -25,10 +25,11 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
 
 # Inherit from our custom product configuration
-$(call inherit-product, vendor/pbrp/config/common.mk)
+$(call inherit-product, vendor/pb/config/pb_common.mk)
 
 # Device specific configs
 $(call inherit-product, device/xiaomi/ares/device.mk)
+
 # Device identity
 PRODUCT_DEVICE := ares
 PRODUCT_NAME := pbrp_ares
