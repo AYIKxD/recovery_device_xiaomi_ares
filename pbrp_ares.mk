@@ -12,7 +12,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
 
 # Common PBRP configuration
-$(call inherit-product, vendor/pb/config/pb_common.mk)
+$(call inherit-product, vendor/pbrp/config/pb_common.mk)
 
 # Device-specific configuration
 $(call inherit-product, device/xiaomi/ares/device.mk)
