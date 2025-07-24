@@ -1,0 +1,8 @@
+on boot
+    # Dimensity 1200 – mt6893 haptics
+    chmod 0660 /dev/mt6893_haptic
+    chown system system /dev/mt6893_haptic
+    symlink /dev/mt6893_haptic /dev/vibrator
+
+on property:vibrator.init=1
+    start vendor.hw.vibrator@1.3-service
