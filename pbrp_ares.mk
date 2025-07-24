@@ -13,7 +13,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
 $(call inherit-product, device/xiaomi/ares/device.mk)
 
 # Inherit PitchBlack base configs
-$(call inherit-product, vendor/pbrp/config/pbrp_common.mk)
+$(call inherit-product, vendor/pb/config/pbrp_common.mk)
 
 # Product Info
 PRODUCT_RELEASE_NAME := ares
