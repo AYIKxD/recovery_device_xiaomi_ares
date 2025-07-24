@@ -1,40 +1,30 @@
 #
-# Copyright (C) 2021 The TWRP Open Source Project
+# Copyright (C) 2021
+# The PBRP (Pitch Black Recovery Project)
 #
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+# Licensed under the Apache License, Version 2.0
+# http://www.apache.org/licenses/LICENSE-2.0
 #
 
-# Inherit from those products. Most specific first.
+# Base configuration
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
-
-# Installs gsi keys into ramdisk, to boot a developer GSI with verified boot.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
 
-# Inherit from our custom product configuration
-$(call inherit-product, vendor/twrp/config/common.mk)
+# Common PBRP configuration
+$(call inherit-product, vendor/pb/config/pb_common.mk)
 
-# Device specific configs
+# Device-specific configuration
 $(call inherit-product, device/xiaomi/ares/device.mk)
 
-## Device identifier. This must come after all inclusions
+# Device identity
 PRODUCT_DEVICE := ares
 PRODUCT_NAME := pbrp_ares
-PRODUCT_BRAND := POCO	
+PRODUCT_BRAND := POCO
 PRODUCT_MODEL := M2104K10I
-PRODUCT_MANUFACTURER := Xiaomi 
+PRODUCT_MANUFACTURER := Xiaomi
 
-# PitchBlack specific configurations (added without removing any TWRP functionality)
-PBRP_DEVICE_MAINTAINER := "ツ๛abrohim๛"
-PBRP_DEVICE_DESC := "POCO F3 GT/Redmi K40 Gaming"
-PBRP_DISABLE_DEFAULT_TREBLE_COMP := true
+# PBRP-specific flags
+PBRP_DEVICE_MAINTAINER := ツ๛abrohim๛
+PBRP_DEVICE := POCO F3 GT/Redmi K40 Gaming
+PBRP_VERSION := 4.0
