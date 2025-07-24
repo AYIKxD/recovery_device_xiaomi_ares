@@ -29,7 +29,12 @@ $(call inherit-product, device/xiaomi/ares/device.mk)
 
 ## Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := ares
-PRODUCT_NAME := twrp_ares
+PRODUCT_NAME := pbrp_ares
 PRODUCT_BRAND := POCO	
 PRODUCT_MODEL := M2104K10I
 PRODUCT_MANUFACTURER := Xiaomi 
+
+# PitchBlack specific configurations (added without removing any TWRP functionality)
+PBRP_DEVICE_MAINTAINER := "ツ๛abrohim๛"
+PBRP_DEVICE_DESC := "POCO F3 GT/Redmi K40 Gaming"
+PBRP_DISABLE_DEFAULT_TREBLE_COMP := true
