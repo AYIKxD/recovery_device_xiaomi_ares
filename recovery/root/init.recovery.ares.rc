@@ -1,0 +1,97 @@
+# Copyright (C) 2023 The PitchBlack Recovery Project
+# Copyright (C) 2021 The TWRP Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+on early-init
+    # Set security context for recovery files
+    restorecon_recursive /sbin
+    restorecon_recursive /res
+
+on init
+    # Setup essential symlinks
+    symlink /system/bin /sbin
+    symlink /system/etc /etc
+    
+    # Mount essential partitions
+    mkdir /dev/block
+    mkdir /dev/block/platform
+    mkdir /dev/block/by-name
+    mount tmpfs tmpfs /dev/block/platform mode=0755
+    mount tmpfs tmpfs /dev/block/by-name mode=0755
+    
+    # Set environment variables
+    export PATH /sbin:/system/bin
+    export LD_LIBRARY_PATH /sbin:/system/lib64:/system/lib
+    export ANDROID_ROOT /system
+    export ANDROID_DATA /data
+    export EXTERNAL_STORAGE /sdcard
+    
+    # Create directories
+    mkdir /tmp 0775 root system
+    mkdir /res 0775 root root
+    mkdir /sdcard 0775 system system
+    mkdir /system 0775 root root
+    mkdir /data 0771 system system
+    mkdir /cache 0770 system cache
+    mkdir /recovery 0775 root root
+    
+    # Setup logging
+    mkdir /tmp/recovery 0775 root system
+    start logd
+
+on boot
+    # Start recovery main service
+    start recovery
+    
+    # Setup additional services
+    class_start main
+    class_start late_start
+    
+    # Initialize SELinux
+    setprop selinux.reload_policy 1
+    
+    # Start essential services
+    start servicemanager
+    start hwservicemanager
+    start vndservicemanager
+
+on fs
+    # Mount partitions
+    mount_all /fstab.ares
+    
+    # Set partition contexts
+    restorecon_recursive /system
+    restorecon_recursive /vendor
+    restorecon_recursive /data
+
+service recovery /sbin/recovery
+    class main
+    priority 20
+    user root
+    group root
+    seclabel u:r:recovery:s0
+    oneshot
+
+service logd /sbin/logd
+    class core
+    priority 0
+    user root
+    group log
+    seclabel u:r:logd:s0
+    socket logd stream 0666 logd logd
+    socket logdr seqpacket 0666 logd logd
+    socket logdw dgram 0222 logd logd
+    file /proc/kmsg r
+    file /dev/kmsg w
+    oneshot
