@@ -189,13 +189,7 @@ TW_CUSTOM_CPU_TEMP_PATH := /sys/class/thermal/thermal_zone1/temp
 
 # TWRP Settings
 TW_USE_TOOLBOX := true
-TW_EXCLUDE_DEFAULT_USB_INIT := true
-TW_INCLUDE_REPACKTOOLS := true
-TW_INCLUDE_NTFS_3G := true
 TW_INCLUDE_LIBRESETPROP := true
-TW_INCLUDE_RESETPROP := true
-TW_INCLUDE_LOGCAT := true
-TARGET_USES_LOGD := true
 
 # StatusBar
 TW_STATUS_ICONS_ALIGN := center
