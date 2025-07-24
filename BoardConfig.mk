@@ -174,7 +174,7 @@ TW_SCREEN_BLANK_ON_BOOT:= true
 TWRP_INCLUDE_LOGCAT := true
 TW_OF_MAINTAINER="ツ๛abrohim๛"
 
-# Screen size for theme detection
+# Theme config
 TARGET_SCREEN_WIDTH := 1080
 TARGET_SCREEN_HEIGHT := 2400
 TW_THEME := portrait_hdpi
