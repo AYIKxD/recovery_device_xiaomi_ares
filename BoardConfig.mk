@@ -171,11 +171,13 @@ TW_INPUT_BLACKLIST := "hbtp_vm"
 TW_INCLUDE_NTFS_3G := true
 TW_MAX_BRIGHTNESS := 2047
 TW_SCREEN_BLANK_ON_BOOT:= true
+TWRP_INCLUDE_LOGCAT := true
+TW_OF_MAINTAINER="ツ๛abrohim๛"
+
+# Screen size for theme detection
 TARGET_SCREEN_WIDTH := 1080
 TARGET_SCREEN_HEIGHT := 2400
 TW_THEME := portrait_hdpi
-TWRP_INCLUDE_LOGCAT := true
-TW_OF_MAINTAINER="ツ๛abrohim๛"
 
 # StatusBar
 TW_STATUS_ICONS_ALIGN := center
