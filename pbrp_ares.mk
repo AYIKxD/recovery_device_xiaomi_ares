@@ -2,21 +2,33 @@
 # Copyright (C) 2021
 # The PBRP (Pitch Black Recovery Project)
 #
-# Licensed under the Apache License, Version 2.0
-# http://www.apache.org/licenses/LICENSE-2.0
+# Copyright (C) 2021 The TWRP Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 #
 
-# Base configuration
+# Inherit from those products. Most specific first.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/base.mk)
+
+# Installs gsi keys into ramdisk, to boot a developer GSI with verified boot.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/gsi_keys.mk)
 
-# Common PBRP configuration
-$(call inherit-product, vendor/pbrp/config/pb_common.mk)
+# Inherit from our custom product configuration
+$(call inherit-product, vendor/pbrp/config/common.mk)
 
-# Device-specific configuration
+# Device specific configs
 $(call inherit-product, device/xiaomi/ares/device.mk)
-
 # Device identity
 PRODUCT_DEVICE := ares
 PRODUCT_NAME := pbrp_ares
