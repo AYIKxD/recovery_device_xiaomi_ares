@@ -1,6 +1,6 @@
 <!-- 🌈 Animated Rainbow Banner -->
 <p align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=24&pause=1000&color=FF0000&vCenter=true&center=true&width=800&lines=ツ๛abrohim๛+TWRP+Tree+for+Redmi+K40+Gaming;Dimensity+1200+%7C+MediaTek+%7C+Virtual+AB;Recovery+Builder+%F0%9F%92%BB+|+Open+Source+Force+%F0%9F%94%A5" />
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=24&pause=1000&color=FF0000&vCenter=true&center=true&width=800&lines=AYIKxD+TWRP+Tree+for+Redmi+K40+Gaming;Dimensity+1200+%7C+MediaTek+%7C+Virtual+AB;Recovery+Builder+%F0%9F%92%BB+|+Open+Source+Force+%F0%9F%94%A5" />
 </p>
 
 <h1 align="center">
