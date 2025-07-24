@@ -18,13 +18,13 @@
 ## 📱 Device Tree Information
 
 ```yaml
-# TWRP Tree for Redmi K40 Gaming (aresin)
+# TWRP Tree for Redmi K40 Gaming (ares)
 
 Brand         : Xiaomi  
-Model         : Redmi K40 Gaming Edition  
-Codename      : aresin  
+Model         : Redmi K40 Gaming Edition & Poco F3 GT
+Codename      : ares  
 SoC Vendor    : MediaTek  
 Chipset       : Dimensity 1200  
 Partition     : Virtual A/B  
 Status        : Supported  
-Maintainer    : ツ๛abrohim๛ (abrohim0786)
+Maintainer    : ツ๛abrohim๛
