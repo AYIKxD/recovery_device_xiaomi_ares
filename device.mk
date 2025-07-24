@@ -79,3 +79,7 @@ TARGET_RECOVERY_DEVICE_MODULES += \
 TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
     $(TARGET_OUT_SHARED_LIBRARIES)/libkeymaster4.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/libpuresoftkeymasterdevice.so
+
+# Vidrator Haptics
+PRODUCT_COPY_FILES += \
+$(LOCAL_PATH)/init.vibrator.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.vibrator.rc
