@@ -29,7 +29,7 @@ $(call inherit-product, device/xiaomi/ares/device.mk)
 
 ## Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := ares
-PRODUCT_NAME := twrp_ares
+PRODUCT_NAME := omni_ares
 PRODUCT_BRAND := POCO	
 PRODUCT_MODEL := M2104K10I
 PRODUCT_MANUFACTURER := Xiaomi 
