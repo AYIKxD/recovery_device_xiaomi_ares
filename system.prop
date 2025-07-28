@@ -2,3 +2,9 @@ ro.crypto.volume.filenames_mode=aes-256-cts
 ro.sys.usb.storage.type=mtp
 ro.vendor.mtk_tee_gp_support=1
 ro.vendor.mtk_microtrust_tee_support=1
+# Force 64-bit binder for all processes
+persist.device_config.runtime_native_boot.force64_binder=true
+
+# VNDK compatibility
+ro.vndk.version=29
+ro.vndk.lite=false
