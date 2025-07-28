@@ -14,22 +14,20 @@
 # limitations under the License.
 #
 
-# API
+# Platform
 PRODUCT_SHIPPING_API_LEVEL := 31
+PRODUCT_PLATFORM := mt6893  # Add your chipset (MediaTek Dimensity 1200)
 
-# Dynamic
+# Partitions
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
-# Enable project quotas and casefolding for emulated storage without sdcardfs
-#$(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
-
-# A/B
+# Virtual A/B
 ENABLE_VIRTUAL_AB := true
 $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota.mk)
 
-# A/B
+# A/B Partitions
 AB_OTA_UPDATER := true
-AB_OTA_PARTITIONS += \
+AB_OTA_PARTITIONS := \
     boot \
     dtbo \
     system \
@@ -41,37 +39,30 @@ AB_OTA_PARTITIONS += \
     vbmeta_system \
     vbmeta_vendor
 
-PRODUCT_PACKAGES += \
-    update_engine \
-    update_engine_sideload \
-    update_verifier
-
+# OTA Postinstall (Fix: Use correct path for your device)
 AB_OTA_POSTINSTALL_CONFIG += \
     RUN_POSTINSTALL_system=true \
-    POSTINSTALL_PATH_system=system/bin/mtk_plpath_utils \
+    POSTINSTALL_PATH_system=system/bin/otapreopt_script \  # Replace with your device's script
     FILESYSTEM_TYPE_system=ext4 \
     POSTINSTALL_OPTIONAL_system=true
 
-# Boot control HAL
+# Boot Control HAL (MediaTek-specific)
 PRODUCT_PACKAGES += \
     android.hardware.boot@1.2-mtkimpl.recovery \
     android.hardware.boot@1.2-mtkimpl \
     libmtk_bsg.recovery
-    
-PRODUCT_PACKAGES_DEBUG += \
-    bootctl
 
-# fastbootd
+# Fastbootd
 PRODUCT_PACKAGES += \
     android.hardware.fastboot@1.0-impl-mock \
     fastbootd
-    
-# Health Hal
+
+# Health HAL
 PRODUCT_PACKAGES += \
     android.hardware.health@2.1-impl \
     android.hardware.health@2.1-service
 
-# Additional target Libraries
+# Keymaster Libraries (Critical for decryption)
 TARGET_RECOVERY_DEVICE_MODULES += \
     libkeymaster4 \
     libpuresoftkeymasterdevice
@@ -80,6 +71,10 @@ TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
     $(TARGET_OUT_SHARED_LIBRARIES)/libkeymaster4.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/libpuresoftkeymasterdevice.so
 
-# Vidrator Haptics
+# Vibrator (Fix: Ensure init.vibrator.rc exists in your device tree)
 PRODUCT_COPY_FILES += \
-$(LOCAL_PATH)/init.vibrator.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.vibrator.rc
+    $(LOCAL_PATH)/rootdir/init.vibrator.rc:$(TARGET_COPY_OUT_RECOVERY)/root/init.vibrator.rc
+
+# PBRP-Specific Additions (Add these if missing)
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/recovery/root/init.recovery.qcom.rc:root/init.recovery.qcom.rc  # Example for Qualcomm, adjust for MediaTek
